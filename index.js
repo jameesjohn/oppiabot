@@ -11,6 +11,7 @@ const whitelistedAccounts = (
   (process.env.WHITELISTED_ACCOUNTS || '').toLowerCase().split(','));
 
 async function runChecks(context, checkEvent) {
+  console.log(checkEvent);
   const repoName = context.repo().repo.toLowerCase();
   const checksWhitelist = constants.getChecksWhitelist();
   if (checksWhitelist.hasOwnProperty(repoName)) {
@@ -18,6 +19,7 @@ async function runChecks(context, checkEvent) {
     if (checks.hasOwnProperty(checkEvent)) {
       const checkList = checks[checkEvent];
       for (var i = 0; i < checkList.length; i++) {
+        console.log(checkList[i]);
         switch (checkList[i]) {
           case constants.claCheck:
             await apiForSheetsModule.checkClaStatus(context);
